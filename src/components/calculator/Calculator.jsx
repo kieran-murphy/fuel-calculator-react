@@ -1,47 +1,79 @@
-import React from "react";
+import React, { useState } from "react";
 import "./calculator.css";
 
-const Calculator = () => {
-  return (
-    <div className="container" id="box">
-      <form class="box">
-        <h1 class="title is-2">Fuel Calculator ✈️</h1>
-        <div class="field">
-          <label class="label">Nautical Miles</label>
-          <div class="control">
-            <input
-              class="input"
-              type="email"
-              placeholder="e.g. alex@example.com"
-            />
-          </div>
-        </div>
+export default class Calculator extends React.Component {
 
-        <div class="field">
-          <label class="label">Extra Fuel</label>
-          <div class="control">
-            <input class="input" type="password" placeholder="********" />
-          </div>
-        </div>
+  constructor(props) {
+    super(props)
+    this.state = {
+      fuel: 0,
+      miles: 0,
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-        <div class="control has-icons-left">
-          <label class="label">Aircraft</label>
-          <div class="select">
-            <select>
-              <option selected>Country</option>
-              <option>Select dropdown</option>
-              <option>With options</option>
-            </select>
+
+  calculate = () => {
+    this.setState({fuel: Math.ceil(this.state.miles * 0.48823529)});
+  }
+
+  handleChange(event) {
+    this.setState({miles: event.target.value});
+  }
+
+  handleSubmit(event) {
+    
+    event.preventDefault();
+  }
+
+
+  render(){
+    return (
+      <div className="container" id="container">
+        <form class="box" id="box" onSubmit={this.handleSubmit}>
+          <h1>Fuel Calculator ✈️</h1>
+          <div class="field">
+            <label class="label">Nautical Miles</label>
+            <div class="control">
+            <input type="number" value={this.state.miles} onChange={this.handleChange}/>
+           
+            </div>
           </div>
-          <span class="icon is-left">
-            <i class="fas fa-globe"></i>
-          </span>
-        </div>
-        <br></br>
-        <button class="button is-primary">Sign in</button>
-      </form>
-    </div>
-  );
+          <br></br>
+          <div class="field">
+            <label class="label">Extra Fuel</label>
+            <div class="select">
+              <select>
+                <option selected>Extra Fuel</option>
+                <option>No Extra Fuel</option>
+  
+              </select>
+            </div>
+          </div>
+          <br></br>
+          <div class="control has-icons-left">
+            <label class="label">Aircraft</label>
+            <div class="select">
+              <select>
+                <option selected>Country</option>
+                <option>Select dropdown</option>
+                <option>With options</option>
+              </select>
+            </div>
+            
+          </div>
+          <br></br>
+          <p>{this.state.fuel} gallons 💧 </p>
+          <br></br>
+          <div>
+          <button onClick={this.calculate}>Calculate</button>
+          </div>
+        </form>
+      </div>
+    );
+  }
+  
 };
 
-export default Calculator;
+
