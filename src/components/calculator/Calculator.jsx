@@ -8,6 +8,8 @@ export default class Calculator extends React.Component {
     this.state = {
       fuel: 0,
       miles: 0,
+      extraFuel: "yes",
+      aircraft: "plane",
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -15,15 +17,23 @@ export default class Calculator extends React.Component {
 
 
   calculate = () => {
-    this.setState({fuel: Math.ceil(this.state.miles * 0.48823529)});
+    if (this.state.extraFuel === "yes") {
+      this.setState({fuel: Math.ceil(this.state.miles * 0.48823529) + 3});
+    } else {
+      this.setState({fuel: Math.ceil(this.state.miles * 0.48823529)});
+    }
+    
   }
 
   handleChange(event) {
-    this.setState({miles: event.target.value});
+    const name = event.target.name;
+    const value = event.target.value;
+    this.setState(values => ({...values, [name]: value}))
+    
   }
 
   handleSubmit(event) {
-    
+    console.log(this.state)
     event.preventDefault();
   }
 
@@ -31,34 +41,34 @@ export default class Calculator extends React.Component {
   render(){
     return (
       <div className="container" id="container">
-        <form class="box" id="box" onSubmit={this.handleSubmit}>
+        <form className="box" id="box" onSubmit={this.handleSubmit}>
           <h1>Fuel Calculator ✈️</h1>
-          <div class="field">
-            <label class="label">Nautical Miles</label>
-            <div class="control">
-            <input type="number" value={this.state.miles} onChange={this.handleChange}/>
+          <div className="field">
+            <label className="label">Nautical Miles</label>
+            <div className="control">
+            <input name="miles" type="number" value={this.state.miles} onChange={this.handleChange}/>
            
             </div>
           </div>
           <br></br>
-          <div class="field">
-            <label class="label">Extra Fuel</label>
-            <div class="select">
-              <select>
-                <option selected>Extra Fuel</option>
-                <option>No Extra Fuel</option>
+          <div className="field">
+            <label className="label">Extra Fuel</label>
+            <div className="select">
+              <select name="extraFuel" value={this.state.extraFuel} onChange={this.handleChange}>
+                <option value="yes">Extra Fuel</option>
+                <option value="no">No Extra Fuel</option>
   
               </select>
             </div>
           </div>
           <br></br>
-          <div class="control has-icons-left">
-            <label class="label">Aircraft</label>
-            <div class="select">
-              <select>
-                <option selected>Country</option>
-                <option>Select dropdown</option>
-                <option>With options</option>
+          <div className="control has-icons-left">
+            <label className="label">Aircraft</label>
+            <div className="select">
+              <select name="aircraft">
+                <option value="Cessna 208 Caravan">Cessna 208 Caravan</option>
+                <option value="Cessna 172 Skyhawk">Cessna 172 Skyhawk</option>
+                
               </select>
             </div>
             
