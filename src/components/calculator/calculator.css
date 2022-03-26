@@ -1,17 +1,14 @@
-.container {
+.card {
   margin: 10% 10%;
   display: flex;
   flex-direction: column;
   background-color: whitesmoke;
   width: 0 auto;
-  
 }
 
 .box {
   margin: 2% 2%;
 }
-
-
 
 .input {
   width: 80%;
@@ -19,4 +16,8 @@
 
 .submit {
   width: 5rem;
+}
+
+i {
+  color: red;
 }
