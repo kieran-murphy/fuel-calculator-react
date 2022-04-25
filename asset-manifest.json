@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/fuel-calculator-react/static/css/main.9328a688.css",
-    "main.js": "/fuel-calculator-react/static/js/main.0f24b9a2.js",
+    "main.css": "/fuel-calculator-react/static/css/main.11c4d12a.css",
+    "main.js": "/fuel-calculator-react/static/js/main.ef83bf45.js",
     "static/js/787.e7185b99.chunk.js": "/fuel-calculator-react/static/js/787.e7185b99.chunk.js",
     "static/media/airport.png": "/fuel-calculator-react/static/media/airport.df72ebad6bb6ee6d9275.png",
     "static/media/logo.svg": "/fuel-calculator-react/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/fuel-calculator-react/index.html",
-    "main.9328a688.css.map": "/fuel-calculator-react/static/css/main.9328a688.css.map",
-    "main.0f24b9a2.js.map": "/fuel-calculator-react/static/js/main.0f24b9a2.js.map",
+    "main.11c4d12a.css.map": "/fuel-calculator-react/static/css/main.11c4d12a.css.map",
+    "main.ef83bf45.js.map": "/fuel-calculator-react/static/js/main.ef83bf45.js.map",
     "787.e7185b99.chunk.js.map": "/fuel-calculator-react/static/js/787.e7185b99.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9328a688.css",
-    "static/js/main.0f24b9a2.js"
+    "static/css/main.11c4d12a.css",
+    "static/js/main.ef83bf45.js"
   ]
 }
