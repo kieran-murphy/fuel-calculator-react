@@ -17,8 +17,8 @@ export default class Calculator extends React.Component {
   }
 
   calculate = () => {
-    if (this.state.miles > 680) {
-      this.setState({ warning: "Nautical miles must be less than 680" });
+    if (this.state.miles > 690) {
+      this.setState({ warning: "Nautical miles must be less than 690" });
     } else if (this.state.miles < 0) {
       this.setState({ warning: "Nautical miles must be greater than 0" });
     } else {
@@ -83,7 +83,7 @@ export default class Calculator extends React.Component {
             <div className="select">
               <select name="aircraft" onChange={this.handleChange}>
                 <option value={0.48823529}>Cessna 208 Caravan</option>
-                <option value={0.48823529}>Cessna 172 Skyhawk</option>
+                {/* <option value={0.48823529}>Cessna 172 Skyhawk</option> */}
               </select>
             </div>
           </div>
@@ -96,7 +96,37 @@ export default class Calculator extends React.Component {
             </button>
           </div>
         </form>
-      </div>
+        <br />
+        
+  <div>
+    
+    <table class="hover">
+      <thead>
+        <tr>
+          <th width="120px">Plane</th>
+          <th>Seats</th>
+          <th>Paxs</th>
+          <th>Total Fuel</th>
+          <th>Total NM</th>
+          <th>Payload</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cessna 208 Caravan</td>
+          <td>14</td>
+          <td>13</td>
+          <td>332</td>
+          <td>690</td>
+          <td>1910</td>
+          
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+</div>
+        
     );
   }
 }

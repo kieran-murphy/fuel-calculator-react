@@ -1,7 +1,7 @@
 .card {
   margin: 10% 10%;
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   background-color: whitesmoke;
   width: 0 auto;
 }
@@ -21,3 +21,23 @@
 i {
   color: red;
 }
+
+table {
+  border-collapse: collapse;
+  width: 70%;
+  align-content: center;
+  padding: 2%;
+  margin: 3%;
+}
+th, td, thead {
+  padding: 0.25rem;
+  text-align: left !important;
+  border: 1px solid #ccc;
+  
+}
+tbody tr:nth-child(odd) {
+  background: #eee;
+}
+
+
+
