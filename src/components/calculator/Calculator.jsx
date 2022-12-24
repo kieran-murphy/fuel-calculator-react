@@ -1,132 +1,117 @@
 import React, { useState } from "react";
 import "./calculator.css";
 
-export default class Calculator extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fuel: 0,
-      miles: 0,
-      extraFuel: "yes",
-      aircraft: 0.48823529,
-      warning: "",
-    };
+const Calculator = () => {
+  const [fuel, setFuel] = useState(0);
+  const [miles, setMiles] = useState(0);
+  const [aircraft, setAircraft] = useState({
+    fuelEconomy: 0,
+    nauticalMiles: 0,
+  });
+  const [warning, setWarning] = useState("");
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  calculate = () => {
-    if (this.state.miles > 690) {
-      this.setState({ warning: "Nautical miles must be less than 690" });
-    } else if (this.state.miles < 0) {
-      this.setState({ warning: "Nautical miles must be greater than 0" });
-    } else {
-      this.setState({ warning: "" });
-      if (this.state.extraFuel === "yes") {
-        this.setState({
-          fuel: Math.ceil(this.state.miles * this.state.aircraft) + 3,
-        });
-      } else {
-        this.setState({
-          fuel: Math.ceil(this.state.miles * this.state.aircraft),
-        });
-      }
-    }
+  const aircraftArray = {
+    c208: { fuelEconomy: 0.48823529, nauticalMiles: 900 },
+    A320: { fuelEconomy: 2.37575758, nauticalMiles: 3300 },
   };
 
-  handleChange(event) {
-    const name = event.target.name;
-    const value = event.target.value;
-    this.setState((values) => ({ ...values, [name]: value }));
+  function calculate() {
+    if (miles > aircraft.nauticalMiles) {
+      setWarning(`Nautical miles must be less than ${aircraft.nauticalMiles}`);
+    } else if (miles < 0) {
+      setWarning("Nautical miles must be greater than 0");
+    } else {
+      setWarning("");
+      setFuel(Math.ceil(miles * aircraft.fuelEconomy));
+    }
   }
 
-  handleSubmit(event) {
-    // console.log(this.state);
+  function handleMilesChange(event) {
+    setMiles(event.target.value);
+  }
+
+  function handleAircraftChange(event) {
+    setAircraft(JSON.parse(event.target.value));
+  }
+
+  function handleSubmit(event) {
     event.preventDefault();
   }
 
-  render() {
-    return (
-      <div className="card">
-        <form className="box" id="box" onSubmit={this.handleSubmit}>
-          <h1>Fuel Calculator ✈️</h1>
-          <div className="field">
-            <label className="label">Nautical Miles</label>
-            <div className="control">
-              <input
-                name="miles"
-                type="number"
-                value={this.state.miles}
-                onChange={this.handleChange}
-              />
-              <i id="warning">{this.state.warning}</i>
-            </div>
+  return (
+    <div className="card">
+      <form className="box" id="box" onSubmit={handleSubmit}>
+        <h1>Fuel Calculator ✈️</h1>
+        <div className="field">
+          <label className="label">Nautical Miles</label>
+          <div className="control">
+            <input
+              name="miles"
+              type="number"
+              value={miles}
+              onChange={handleMilesChange}
+            />
+            <i id="warning">{warning}</i>
           </div>
-          <br></br>
-          <div className="field">
-            <label className="label">Extra Fuel</label>
-            <div className="select">
-              <select
-                name="extraFuel"
-                value={this.state.extraFuel}
-                onChange={this.handleChange}
-              >
-                <option value="yes">Extra Fuel</option>
-                <option value="no">No Extra Fuel</option>
-              </select>
-            </div>
+        </div>
+
+        <br></br>
+        <div className="control has-icons-left">
+          <label className="label">Aircraft</label>
+          <div className="select">
+            <select name="aircraft" onChange={handleAircraftChange}>
+              <option value={JSON.stringify(aircraftArray.c208)}>
+                Cessna 208 Caravan
+              </option>
+              <option value={JSON.stringify(aircraftArray.A320)}>A320</option>
+            </select>
           </div>
-          <br></br>
-          <div className="control has-icons-left">
-            <label className="label">Aircraft</label>
-            <div className="select">
-              <select name="aircraft" onChange={this.handleChange}>
-                <option value={0.48823529}>Cessna 208 Caravan</option>
-                {/* <option value={0.48823529}>Cessna 172 Skyhawk</option> */}
-              </select>
-            </div>
-          </div>
-          <br></br>
-          <p>{this.state.fuel} gallons 💧 </p>
-          <br></br>
-          <div>
-            <button className="button" onClick={this.calculate}>
-              Calculate
-            </button>
-          </div>
-        </form>
-        <br />
-        
-  <div>
-    
-    <table class="hover">
-      <thead>
-        <tr>
-          <th width="120px">Plane</th>
-          <th>Seats</th>
-          <th>Paxs</th>
-          <th>Total Fuel</th>
-          <th>Total NM</th>
-          <th>Payload</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Cessna 208 Caravan</td>
-          <td>14</td>
-          <td>13</td>
-          <td>332</td>
-          <td>690</td>
-          <td>1910</td>
-          
-        </tr>
-        
-      </tbody>
-    </table>
-  </div>
-</div>
-        
-    );
-  }
-}
+        </div>
+        <br></br>
+        <p>{fuel} gallons 💧 </p>
+        <br></br>
+        <div>
+          <button className="button" onClick={calculate}>
+            Calculate
+          </button>
+        </div>
+      </form>
+      <br />
+
+      <div>
+        <table className="hover">
+          <thead>
+            <tr>
+              <th width="120px">Plane</th>
+              <th>Seats</th>
+              <th>Pax</th>
+              <th>Total Fuel</th>
+              <th>Total NM</th>
+              <th>Payload</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cessna 208 Caravan</td>
+              <td>14</td>
+              <td>13</td>
+              <td>332</td>
+              <td>900</td>
+              <td>1910</td>
+            </tr>
+            <tr>
+              <td>A320</td>
+              <td>150</td>
+              <td>148</td>
+              <td>7840</td>
+              <td>3300</td>
+              <td>30279</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+export default Calculator;
