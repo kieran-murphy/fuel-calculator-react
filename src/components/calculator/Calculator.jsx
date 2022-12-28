@@ -1,23 +1,23 @@
 import React, { useState } from "react";
 import "./calculator.css";
 
+const aircraftArray = {
+  c208: { fuelEconomy: 0.415, nauticalMiles: 800 },
+  A320: { fuelEconomy: 2.37575758, nauticalMiles: 3300 },
+};
+
 const Calculator = () => {
   const [fuel, setFuel] = useState(0);
   const [miles, setMiles] = useState(0);
-  const [aircraft, setAircraft] = useState({
-    fuelEconomy: 0,
-    nauticalMiles: 0,
-  });
+  const [aircraft, setAircraft] = useState(
+    aircraftArray.c208
+  );
   const [warning, setWarning] = useState("");
-
-  const aircraftArray = {
-    c208: { fuelEconomy: 0.48823529, nauticalMiles: 900 },
-    A320: { fuelEconomy: 2.37575758, nauticalMiles: 3300 },
-  };
 
   function calculate() {
     if (miles > aircraft.nauticalMiles) {
       setWarning(`Nautical miles must be less than ${aircraft.nauticalMiles}`);
+      setFuel('N/A');
     } else if (miles < 0) {
       setWarning("Nautical miles must be greater than 0");
     } else {
