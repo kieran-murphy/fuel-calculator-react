@@ -2,27 +2,48 @@ import React, { useState } from "react";
 import "./calculator.css";
 
 const aircraftArray = {
-  c208: { fuelEconomy: 0.415, nauticalMiles: 800 },
-  A320: { fuelEconomy: 2.37575758, nauticalMiles: 3300 },
+  c208: {
+    name: "c208",
+    fuelEconomy: 0.5098,
+    fuelCapacity: 332,
+    pax: 13,
+    payload: 1910,
+    seats: 14,
+  },
+  A320: {
+    name: "A320",
+    fuelEconomy: 2.37575758,
+    fuelCapacity: 7840,
+    pax: 148,
+    payload: 30279,
+    seats: 150,
+  },
 };
 
 const Calculator = () => {
+  const speed = 0.82352;
+
   const [fuel, setFuel] = useState(0);
   const [miles, setMiles] = useState(0);
-  const [aircraft, setAircraft] = useState(
-    aircraftArray.c208
-  );
+  const [time, setTime] = useState(0);
+  const [aircraft, setAircraft] = useState(aircraftArray.c208);
   const [warning, setWarning] = useState("");
 
   function calculate() {
-    if (miles > aircraft.nauticalMiles) {
-      setWarning(`Nautical miles must be less than ${aircraft.nauticalMiles}`);
-      setFuel('N/A');
+    if (miles * aircraft.fuelEconomy > aircraft.fuelCapacity) {
+      setWarning(
+        `Cannot travel more than ${Math.floor(
+          aircraft.fuelCapacity / aircraft.fuelEconomy
+        )} miles with this aircraft`
+      );
+      setFuel("N/A");
+      setTime("N/A");
     } else if (miles < 0) {
       setWarning("Nautical miles must be greater than 0");
     } else {
       setWarning("");
       setFuel(Math.ceil(miles * aircraft.fuelEconomy));
+      setTime(Math.ceil(miles * speed));
     }
   }
 
@@ -54,8 +75,8 @@ const Calculator = () => {
             <i id="warning">{warning}</i>
           </div>
         </div>
+        <br />
 
-        <br></br>
         <div className="control has-icons-left">
           <label className="label">Aircraft</label>
           <div className="select">
@@ -69,6 +90,7 @@ const Calculator = () => {
         </div>
         <br></br>
         <p>{fuel} gallons 💧 </p>
+        <p>{time} minutes ⏱ </p>
         <br></br>
         <div>
           <button className="button" onClick={calculate}>
@@ -85,28 +107,24 @@ const Calculator = () => {
               <th width="120px">Plane</th>
               <th>Seats</th>
               <th>Pax</th>
-              <th>Total Fuel</th>
+              <th>Fuel Capacity</th>
               <th>Total NM</th>
               <th>Payload</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Cessna 208 Caravan</td>
-              <td>14</td>
-              <td>13</td>
-              <td>332</td>
-              <td>900</td>
-              <td>1910</td>
-            </tr>
-            <tr>
-              <td>A320</td>
-              <td>150</td>
-              <td>148</td>
-              <td>7840</td>
-              <td>3300</td>
-              <td>30279</td>
-            </tr>
+            {Object.values(aircraftArray).map((aircraft) => (
+              <tr>
+                <td>{aircraft.name}</td>
+                <td>{aircraft.seats}</td>
+                <td>{aircraft.pax}</td>
+                <td>{aircraft.fuelCapacity}</td>
+                <td>
+                  {Math.floor(aircraft.fuelCapacity / aircraft.fuelEconomy)}
+                </td>
+                <td>{aircraft.payload}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
