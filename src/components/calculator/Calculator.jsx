@@ -20,30 +20,64 @@ const aircraftArray = {
   },
 };
 
+const styles = {
+  grey: {
+    backgroundColor: "grey",
+    opacity: "50%",
+    marginLeft: "0.5em",
+    marginRight: "0.5em",
+    cursor: "pointer",
+  },
+  blue: {
+    marginLeft: "0.5em",
+    marginRight: "0.5em",
+    cursor: "pointer",
+  },
+};
+
 const Calculator = () => {
   const speed = 0.82352;
-
+  const KGRatio = 2.68728571;
   const [fuel, setFuel] = useState(0);
   const [miles, setMiles] = useState(0);
   const [time, setTime] = useState(0);
   const [aircraft, setAircraft] = useState(aircraftArray.c208);
   const [warning, setWarning] = useState("");
+  const [mode, setMode] = useState("miles");
 
   function calculate() {
-    if (miles * aircraft.fuelEconomy > aircraft.fuelCapacity) {
-      setWarning(
-        `Cannot travel more than ${Math.floor(
-          aircraft.fuelCapacity / aircraft.fuelEconomy
-        )} miles with this aircraft`
-      );
-      setFuel("N/A");
-      setTime("N/A");
-    } else if (miles < 0) {
-      setWarning("Nautical miles must be greater than 0");
+    if (mode === "kilos") {
+      if (miles * aircraft.fuelEconomy > aircraft.fuelCapacity) {
+        setWarning(
+          `Cannot travel more than ${Math.floor(
+            aircraft.fuelCapacity / aircraft.fuelEconomy
+          )} miles with this aircraft`
+        );
+        setFuel("N/A");
+        setTime("N/A");
+      } else if (miles < 0) {
+        setWarning("Kilograms must be greater than 0");
+      } else {
+        setWarning("");
+        setFuel(Math.ceil(miles / KGRatio));
+        setTime(Math.ceil(miles * speed));
+      }
     } else {
-      setWarning("");
-      setFuel(Math.ceil(miles * aircraft.fuelEconomy));
-      setTime(Math.ceil(miles * speed));
+      if (miles / KGRatio > aircraft.fuelCapacity) {
+        setWarning(
+          `Cannot travel more than ${Math.floor(
+            aircraft.fuelCapacity / aircraft.fuelEconomy
+          )} miles with this aircraft`
+        );
+        setFuel("N/A");
+        setTime("N/A");
+      } else if (miles < 0) {
+        setWarning("Nautical miles must be greater than 0");
+      } else {
+        setWarning("");
+        setFuel(Math.ceil(miles * aircraft.fuelEconomy));
+        setTime(Math.ceil(miles * speed));
+      }
     }
   }
 
@@ -64,7 +98,28 @@ const Calculator = () => {
       <form className="box" id="box" onSubmit={handleSubmit}>
         <h1>Fuel Calculator ✈️</h1>
         <div className="field">
-          <label className="label">Nautical Miles</label>
+          <label
+            className="label"
+            style={mode === "miles" ? styles.blue : styles.grey}
+            onClick={() => {
+              setMode("miles");
+              setMiles(0);
+              setWarning("");
+            }}
+          >
+            Nautical Miles
+          </label>
+          <label
+            className="label"
+            style={mode === "miles" ? styles.grey : styles.blue}
+            onClick={() => {
+              setMode("kilos");
+              setMiles(0);
+              setWarning("");
+            }}
+          >
+            Kilograms
+          </label>
           <div className="control">
             <input
               name="miles"
@@ -78,7 +133,9 @@ const Calculator = () => {
         <br />
 
         <div className="control has-icons-left">
-          <label className="label">Aircraft</label>
+          <label className="label" style={{ marginLeft: "0.5em" }}>
+            Aircraft
+          </label>
           <div className="select">
             <select name="aircraft" onChange={handleAircraftChange}>
               <option value={JSON.stringify(aircraftArray.c208)}>
@@ -114,7 +171,7 @@ const Calculator = () => {
           </thead>
           <tbody>
             {Object.values(aircraftArray).map((aircraft) => (
-              <tr>
+              <tr key={aircraft.name}>
                 <td>{aircraft.name}</td>
                 <td>{aircraft.seats}</td>
                 <td>{aircraft.pax}</td>
