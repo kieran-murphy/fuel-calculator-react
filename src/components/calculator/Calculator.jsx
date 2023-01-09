@@ -47,7 +47,7 @@ const Calculator = () => {
 
   function calculate() {
     if (mode === "kilos") {
-      if (miles * aircraft.fuelEconomy > aircraft.fuelCapacity) {
+      if (miles / KGRatio > aircraft.fuelCapacity) {
         setWarning(
           `Cannot travel more than ${Math.floor(
             aircraft.fuelCapacity / aircraft.fuelEconomy
@@ -63,7 +63,7 @@ const Calculator = () => {
         setTime(Math.ceil(miles * speed));
       }
     } else {
-      if (miles / KGRatio > aircraft.fuelCapacity) {
+      if (miles * aircraft.fuelEconomy > aircraft.fuelCapacity) {
         setWarning(
           `Cannot travel more than ${Math.floor(
             aircraft.fuelCapacity / aircraft.fuelEconomy
