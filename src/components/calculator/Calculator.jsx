@@ -18,6 +18,14 @@ const aircraftArray = {
     payload: 30279,
     seats: 150,
   },
+  B737800: {
+    name: "B737800",
+    fuelEconomy: 4.32244009,
+    fuelCapacity: 6875,
+    pax: 160,
+    payload: 28389,
+    seats: 162,
+  },
 };
 
 const styles = {
@@ -142,6 +150,8 @@ const Calculator = () => {
                 Cessna 208 Caravan
               </option>
               <option value={JSON.stringify(aircraftArray.A320)}>A320</option>
+              <option value={JSON.stringify(aircraftArray.B737800)}>B737800</option>
+            
             </select>
           </div>
         </div>
