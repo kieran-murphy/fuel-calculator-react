@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import "./calculator.css";
 
 const aircraftArray = {
-  c208: {
-    name: "c208",
-    fuelEconomy: 0.5098,
-    fuelCapacity: 332,
-    pax: 13,
-    payload: 1910,
-    seats: 14,
+  C510: {
+    name: "C510",
+    fuelEconomy: 0.38043,
+    fuelCapacity: 386,
+    pax: 5,
+    payload: 500,
+    seats: 5,
   },
   A320: {
     name: "A320",
@@ -49,7 +49,7 @@ const Calculator = () => {
   const [fuel, setFuel] = useState(0);
   const [miles, setMiles] = useState(0);
   const [time, setTime] = useState(0);
-  const [aircraft, setAircraft] = useState(aircraftArray.c208);
+  const [aircraft, setAircraft] = useState(aircraftArray.C510);
   const [warning, setWarning] = useState("");
   const [mode, setMode] = useState("miles");
 
@@ -146,12 +146,13 @@ const Calculator = () => {
           </label>
           <div className="select">
             <select name="aircraft" onChange={handleAircraftChange}>
-              <option value={JSON.stringify(aircraftArray.c208)}>
-                Cessna 208 Caravan
+              <option value={JSON.stringify(aircraftArray.C510)}>
+                Cessna 510 Mustang
               </option>
               <option value={JSON.stringify(aircraftArray.A320)}>A320</option>
-              <option value={JSON.stringify(aircraftArray.B737800)}>B737800</option>
-            
+              <option value={JSON.stringify(aircraftArray.B737800)}>
+                B737800
+              </option>
             </select>
           </div>
         </div>
