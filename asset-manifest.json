@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/fuel-calculator-react/static/css/main.c1711eaa.css",
-    "main.js": "/fuel-calculator-react/static/js/main.a15af93d.js",
+    "main.js": "/fuel-calculator-react/static/js/main.63f66553.js",
     "static/js/787.e7185b99.chunk.js": "/fuel-calculator-react/static/js/787.e7185b99.chunk.js",
     "static/media/airport.png": "/fuel-calculator-react/static/media/airport.df72ebad6bb6ee6d9275.png",
     "index.html": "/fuel-calculator-react/index.html",
     "main.c1711eaa.css.map": "/fuel-calculator-react/static/css/main.c1711eaa.css.map",
-    "main.a15af93d.js.map": "/fuel-calculator-react/static/js/main.a15af93d.js.map",
+    "main.63f66553.js.map": "/fuel-calculator-react/static/js/main.63f66553.js.map",
     "787.e7185b99.chunk.js.map": "/fuel-calculator-react/static/js/787.e7185b99.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c1711eaa.css",
-    "static/js/main.a15af93d.js"
+    "static/js/main.63f66553.js"
   ]
 }
